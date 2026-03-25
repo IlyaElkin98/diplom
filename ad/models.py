@@ -7,8 +7,8 @@ class Ad(models.Model):
     description = models.TextField(verbose_name='Описание объявления', help_text='Введите описание объявления')
     images = models.ImageField(verbose_name='Фотография объявления', null=True, blank=True)
     date_created = models.DateTimeField(verbose_name='Дата создания объявления', auto_now=True)
-    phone_number = models.IntegerField(verbose_name='Номер телефона')
-    user = models.ForeignKey(CustomUser, verbose_name='Пользователь', on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=200, verbose_name='Номер телефона')
+    owner = models.ForeignKey(CustomUser, related_name='ad', on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Объявление'

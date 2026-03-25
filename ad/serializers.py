@@ -6,4 +6,4 @@ from ad.models import Ad
 class AdSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ad
-        fields = ['id', 'title', 'description', 'phone_number', 'user']
+        fields = ['id', 'title', 'description', 'phone_number']
