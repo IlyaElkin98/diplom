@@ -9,6 +9,7 @@ class Ad(models.Model):
     date_created = models.DateTimeField(verbose_name='Дата создания объявления', auto_now=True)
     phone_number = models.CharField(max_length=200, verbose_name='Номер телефона')
     owner = models.ForeignKey(CustomUser, related_name='ad', on_delete=models.CASCADE, null=True, blank=True)
+    is_premium = models.BooleanField(verbose_name='Премиум объявления', default=False)
 
 
     class Meta:

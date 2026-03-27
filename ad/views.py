@@ -5,6 +5,7 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from ad.models import Ad
 from ad.serializers import AdSerializer
+from users.models import CustomUser
 from users.permissions import Moderator, IsOwner
 
 
@@ -14,6 +15,14 @@ class AdViewSet(viewsets.ModelViewSet):
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['title', 'description']
     ordering_fields = ['title', 'description']
+
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated and user.subscription:
+            return Ad.objects.order_by('-is_premium', '-date_created')
+        return Ad.objects.all().order_by('-date_created')
+
 
 
     def get_permissions(self):
@@ -33,6 +42,3 @@ class AdViewSet(viewsets.ModelViewSet):
         new_lesson = serializer.save()
         new_lesson.owner = self.request.user
         new_lesson.save()
-
-
-

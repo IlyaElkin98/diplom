@@ -1,3 +1,4 @@
+from rest_framework import views, status
 from rest_framework.generics import CreateAPIView, GenericAPIView
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
@@ -30,3 +31,14 @@ class UserLoginAPIView(GenericAPIView):
                 'access': str(refresh.access_token),
             })
         return Response({"detail": "Invalid credentials"}, status=400)
+
+
+
+class SubscriptionView(views.APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        user = request.user
+        user.subscription = not user.subscription
+        user.save()
+        return Response({'subscription': user.subscription}, status=status.HTTP_200_OK)
