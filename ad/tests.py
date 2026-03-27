@@ -1,4 +1,3 @@
-from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -10,7 +9,8 @@ from users.models import CustomUser
 class AdTestCase(APITestCase):
     def setUp(self):
         self.user = CustomUser.objects.create(email='test@example.ru', username='test', password='0000')
-        self.ad = Ad.objects.create(title='Тестовое название объявления', description='Описание', phone_number='8-999-999-99-99', owner=self.user)
+        self.ad = Ad.objects.create(title='Тестовое название объявления',
+                                    description='Описание', phone_number='8-999-999-99-99', owner=self.user)
         self.client.force_authenticate(user=self.user)
 
     def test_ad_retrieve(self):
@@ -61,4 +61,3 @@ class AdTestCase(APITestCase):
         }
         response = self.client.patch(url, data)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-

@@ -33,7 +33,6 @@ class UserLoginAPIView(GenericAPIView):
         return Response({"detail": "Invalid credentials"}, status=400)
 
 
-
 class SubscriptionView(views.APIView):
     permission_classes = [IsAuthenticated]
 
