@@ -1,4 +1,6 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from ad.models import Ad
@@ -9,6 +11,10 @@ from users.permissions import Moderator, IsOwner
 class AdViewSet(viewsets.ModelViewSet):
     queryset = Ad.objects.all()
     serializer_class = AdSerializer
+    filter_backends = [SearchFilter, OrderingFilter]
+    search_fields = ['title', 'description']
+    ordering_fields = ['title', 'description']
+
 
     def get_permissions(self):
         if self.action == 'create':

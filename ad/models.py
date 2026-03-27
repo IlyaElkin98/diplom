@@ -10,6 +10,7 @@ class Ad(models.Model):
     phone_number = models.CharField(max_length=200, verbose_name='Номер телефона')
     owner = models.ForeignKey(CustomUser, related_name='ad', on_delete=models.CASCADE, null=True, blank=True)
 
+
     class Meta:
         verbose_name = 'Объявление'
         verbose_name_plural = 'Объявления'
