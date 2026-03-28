@@ -26,9 +26,9 @@ class CustomUser(AbstractUser):
     email = models.CharField(verbose_name='Электронная почта',
                              help_text='Введите свою электронную почту', max_length=50)
     date_joined = models.DateField(auto_now_add=True, verbose_name='Дата создания аккаунта')
-    avatar = models.ImageField(upload_to='ad/', help_text='Загрузите свой аватар')
+    avatar = models.ImageField(upload_to='ad/', help_text='Загрузите свой аватар', null=True, blank=True)
     area_of_residence = models.CharField(choices=DISTRICT_CHOICES, verbose_name='Район проживания',
-                                         help_text='Выберете район проживания')
+                                         help_text='Выберете район проживания', null=True, blank=True)
     subscription = models.BooleanField(default=False, verbose_name='Признак платной подписки')
 
     USERNAME_FIELD = 'username'

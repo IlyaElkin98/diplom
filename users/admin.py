@@ -4,6 +4,6 @@ from .models import CustomUser
 
 @admin.register(CustomUser)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ['id', 'username', 'email', 'avatar',]
-    list_filter = ['id',]
-    search_fields = ['username']
+    list_display = ['id', 'username', 'email', 'subscription']
+    list_filter = ['id', 'username', 'email', 'subscription']
+    search_fields = ['username', 'subscription']
