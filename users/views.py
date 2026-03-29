@@ -46,5 +46,3 @@ class SubscriptionView(views.APIView):
             ad.save()
         user.save()
         return Response({'subscription': user.subscription}, status=status.HTTP_200_OK)
-
-
