@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from ad.models import Ad
 from users.models import CustomUser
 from users.serializers import RegisterUserSerializer, LoginUserSerializer
 
@@ -38,6 +39,12 @@ class SubscriptionView(views.APIView):
 
     def post(self, request):
         user = request.user
+        premium_ads = Ad.objects.filter(owner=user)
         user.subscription = not user.subscription
+        for ad in premium_ads:
+            ad.is_premium = user.subscription
+            ad.save()
         user.save()
         return Response({'subscription': user.subscription}, status=status.HTTP_200_OK)
+
+
